@@ -13,17 +13,17 @@ updateequipo::updateequipo(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QRegularExpression soloLetras("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$");
-    QRegularExpressionValidator *validadorTexto = new QRegularExpressionValidator(soloLetras, this);
+    QRegularExpression regAlfaNumerico("^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\\s]*$");
+    QRegularExpressionValidator *valAlfaNumerico = new QRegularExpressionValidator(regAlfaNumerico, this);
 
-    ui->lineEditNuevoNombre->setValidator(validadorTexto);
-    ui->lineEditNuevaCiudad->setValidator(validadorTexto);
-    ui->lineEditNuevoDT->setValidator(validadorTexto);
+    ui->lineEditBuscarId->setValidator(valAlfaNumerico);
+    ui->lineEditNuevoId->setValidator(valAlfaNumerico);
+    ui->lineEditNuevoNombre->setValidator(valAlfaNumerico);
 
-    QRegularExpression soloNumeros("^[0-9]*$");
-    QRegularExpressionValidator *validadorSoloNumeros = new QRegularExpressionValidator(soloNumeros, this);
-    ui->lineEditNuevoId->setValidator(validadorSoloNumeros);
-    ui->lineEditBuscarId->setValidator(validadorSoloNumeros);
+    QRegularExpression regSoloLetras("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*$");
+    QRegularExpressionValidator *valLetras = new QRegularExpressionValidator(regSoloLetras, this);
+    ui->lineEditNuevaCiudad->setValidator(valLetras);
+    ui->lineEditNuevoDT->setValidator(valLetras);
 }
 
 updateequipo::~updateequipo()
@@ -80,11 +80,6 @@ void updateequipo::on_Actualizar_clicked()
 
     if(nuevoId.isEmpty() || nombre.isEmpty() || ciudad.isEmpty() || dt.isEmpty()){
         QMessageBox::warning(this, "Error", "No pueden estar los campos vacios");
-        return;
-    }
-
-    if(puntosVal < 0){
-        QMessageBox::warning(this, "Error", "Los puntos no pueden ser menor que cero");
         return;
     }
 
